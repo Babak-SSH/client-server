@@ -4,7 +4,7 @@
 
 #include <cstdint>
 
-namespace TCP {
+namespace FileDesc {
 
     enum Result {
         FAILURE,
@@ -19,8 +19,8 @@ namespace TCP {
             int _sockfd = 0;
 
         public:
-            void set(int fd) { _sockfd = fd; }
-            int get() const { return _sockfd; }
+            void set(int fd);
+            int get() const;
     };
 
 } // namespace TCP
