@@ -1,3 +1,6 @@
+#include <functional>
+#include <unistd.h>
+
 #include "../include/tcp_server.h"
 
 
@@ -56,5 +59,109 @@ namespace TCP {
         if (listen(_socketDesc.get(), clientsQueueSize) == -1) {
             throw std::runtime_error(strerror(errno));
         }
+    }
+
+    std::string TcpServer::acceptClient(uint timeout) {
+        const ret_st waitingForClient = waitForClient(timeout);
+        if (!waitingForClient.isSuccessful()) {
+            throw std::runtime_error(waitingForClient.message());
+        }
+
+        socklen_t socketSize  = sizeof(_clientAddress);
+        const int fileDescriptor = accept(_socketDesc.get(), (struct sockaddr*)&_clientAddress, &socketSize);
+
+        const bool acceptFailed = (fileDescriptor == -1);
+        if (acceptFailed) {
+            throw std::runtime_error(strerror(errno));
+        }
+
+        auto newClient = new Client(fileDescriptor);
+        newClient->setIp(inet_ntoa(_clientAddress.sin_addr));
+        using namespace std::placeholders;
+        //newClient->setEventsHandler(std::bind(&TcpServer::clientEventHandler, this, _1, _2, _3));
+        newClient->startListen();
+
+        std::lock_guard<std::mutex> lock(_clientsMtx);
+        _clients.push_back(newClient);
+
+        return newClient->getIp();
+    } 
+
+    ret_st TcpServer::waitForClient(uint32_t timeout) {
+    if (timeout > 0) {
+        const FileDesc::Result waitResult = FileDesc::waitFor(_socketDesc, timeout);
+        const bool noIncomingClient = (!FD_ISSET(_socketDesc.get(), &_fds));
+
+        if (waitResult == FileDesc::Result::FAILURE) {
+            return ret_st::failure(strerror(errno));
+        } else if (waitResult == FileDesc::Result::TIMEOUT) {
+            return ret_st::failure("Timeout waiting for client");
+        } else if (noIncomingClient) {
+            return ret_st::failure("File descriptor is not set");
+        }
+    }
+
+    return ret_st::success();
+}
+
+    /*
+     * Send message to all connected clients.
+     * Return true if message was sent successfully to all clients
+     */
+    ret_st TcpServer::sendToAllClients(const char * msg, size_t size) {
+        std::lock_guard<std::mutex> lock(_clientsMtx);
+    
+        for (const Client *client : _clients) {
+            ret_st sendingResult = sendToClient(*client, msg, size);
+            if (!sendingResult.isSuccessful()) {
+                return sendingResult;
+            }
+        }
+    
+        return ret_st::success();
+    }
+    
+    /*
+     * Send message to specific client (determined by client IP address).
+     * Return true if message was sent successfully
+     */
+    ret_st TcpServer::sendToClient(const Client & client, const char * msg, size_t size){
+        try{
+            client.send(msg, size);
+        } catch (const std::runtime_error &error) {
+            return ret_st::failure(error.what());
+        }
+    
+        return ret_st::success();
+    }
+    
+    /*
+     * Close server and clients resources.
+     * Return true is successFlag, false otherwise
+     */
+    ret_st TcpServer::close() {
+        //terminateDeadClientsRemover();
+        { // close clients
+            std::lock_guard<std::mutex> lock(_clientsMtx);
+    
+            for (Client * client : _clients) {
+                try {
+                    client->close();
+                } catch (const std::runtime_error& error) {
+                    return ret_st::failure(error.what());
+                }
+            }
+            _clients.clear();
+        }
+    
+        { // close server
+            const int closeServerResult = ::close(_socketDesc.get());
+            const bool closeServerFailed = (closeServerResult == -1);
+            if (closeServerFailed) {
+                return ret_st::failure(strerror(errno));
+            }
+        }
+    
+        return ret_st::success();
     }
 } // namespace TCP
