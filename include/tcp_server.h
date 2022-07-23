@@ -21,9 +21,9 @@ namespace TCP {
 
 class TcpServer {
     private:
-        FileDesc::FileDescriptor socket_desc, new_socket, thread_socket;
+        FileDesc::FileDescriptor _socketDesc, _newSocket, _threadSocket;
         struct sockaddr_in _serverAddress, _clientAddress;
-        char *message, client_reply[2000];
+        char *message, clientReply[2000];
 
         // void publishClientMsg(const Client & client, const char * msg, size_t msgSize);
         // void publishClientDisconnected(const std::string&, const std::string&);
