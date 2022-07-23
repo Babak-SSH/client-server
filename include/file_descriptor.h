@@ -1,8 +1,10 @@
 #ifndef FILE_DESCRIPTOR_H
 #define FILE_DESCRIPTOR_H
 
-
 #include <cstdint>
+
+#define MAX_PACKET_SIZE 4096
+
 
 namespace FileDesc {
 
