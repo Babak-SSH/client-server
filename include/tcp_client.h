@@ -38,7 +38,7 @@ class TcpClient {
         void setAddress(const std::string& address, int port);
         //void publishServerMsg(const char * msg, size_t msgSize);
         //void publishServerDisconnected(const ret_st & ret);
-        //void receiveTask();
+        void receiveTask();
         void terminateReceiveThread();
 
     public:
