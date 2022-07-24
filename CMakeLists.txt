@@ -10,7 +10,8 @@ add_library(${PROJECT_NAME}
         src/tcp_client.cpp
         src/tcp_server.cpp
         src/client.cpp
-        src/utils.cpp)
+        src/utils.cpp
+        src/file_descriptor.cpp)
 
 add_executable(tcp_server test/server_test.cpp)
 
