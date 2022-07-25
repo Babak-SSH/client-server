@@ -2,7 +2,10 @@
 #define UTILS_H
 
 #include <string>
+#include <functional>
 
+
+namespace TCP {
 
 class ret_st {
 
@@ -26,4 +29,11 @@ public:
     static ret_st success(const std::string &msg = "");
 };
 
+struct server_observer_t {
+	std::string wantedIP = "";
+	std::function<void(const std::string &clientIP, const char * msg, size_t size)> incomingPacketHandler;
+	std::function<void(const std::string &ip, const std::string &msg)> disconnectionHandler;
+};
+
+} // namespace TCP
 #endif
