@@ -14,8 +14,6 @@ namespace FileDesc {
         SUCCESS
     };
 
-    Result waitFor(const FileDescriptor &fileDescriptor, uint32_t timeoutSeconds = 1);
-
     class FileDescriptor {
         private:
             int _sockfd = 0;
@@ -24,6 +22,8 @@ namespace FileDesc {
             void set(int fd);
             int get() const;
     };
+
+    Result waitFor(const FileDescriptor &fileDescriptor, uint32_t timeoutSeconds = 1);
 
 } // namespace TCP
 
