@@ -7,15 +7,79 @@
 namespace TCP {
 
     TcpServer::TcpServer() {
-
+        _clients.reserve(10);
     }
 
     TcpServer::~TcpServer() {
         close();
     }
 
-    void TcpServer::printClients() {
+    void TcpServer::subscribe(const server_observer_t & observer) {
+        std::lock_guard<std::mutex> lock(_subscribersMtx);
+        _subscribers.push_back(observer);
+    }
 
+    void TcpServer::printClients() {
+        std::lock_guard<std::mutex> lock(_clientsMtx);
+        if (_clients.empty()) {
+            std::cout << "no connected clients\n";
+        }
+        for (const Client *client : _clients) {
+            client->print();
+        }
+    }
+
+    /**
+     * Handle different client events. Subscriber callbacks should be short and fast, and must not
+     * call other server functions to avoid deadlock
+     */
+    void TcpServer::clientEventHandler(const Client &client, ClientEvent event, const std::string &msg) {
+        switch (event) {
+            case ClientEvent::DISCONNECTED: {
+                publishClientDisconnected(client.getIp(), msg);
+                break;
+            }
+            case ClientEvent::INCOMING_MSG: {
+                publishClientMsg(client, msg.c_str(), msg.size());
+                break;
+            }
+        }
+    }
+
+    /*
+     * Publish incomingPacketHandler client message to observer.
+     * Observers get only messages that originated
+     * from clients with IP address identical to
+     * the specific observer requested IP
+     */
+    void TcpServer::publishClientMsg(const Client & client, const char * msg, size_t msgSize) {
+        std::lock_guard<std::mutex> lock(_subscribersMtx);
+
+        for (const server_observer_t& subscriber : _subscribers) {
+            if (subscriber.wantedIP == client.getIp() || subscriber.wantedIP.empty()) {
+                if (subscriber.incomingPacketHandler) {
+                    subscriber.incomingPacketHandler(client.getIp(), msg, msgSize);
+                }
+            }
+        }
+    }
+
+    /*
+     * Publish client disconnection to observer.
+     * Observers get only notify about clients
+     * with IP address identical to the specific
+     * observer requested IP
+     */
+    void TcpServer::publishClientDisconnected(const std::string &clientIP, const std::string &clientMsg) {
+        std::lock_guard<std::mutex> lock(_subscribersMtx);
+
+        for (const server_observer_t& subscriber : _subscribers) {
+            if (subscriber.wantedIP == clientIP) {
+                if (subscriber.disconnectionHandler) {
+                    subscriber.disconnectionHandler(clientIP, clientMsg);
+                }
+            }
+        }
     }
 
     /// bind port and start listening
@@ -78,7 +142,7 @@ namespace TCP {
         auto newClient = new Client(fileDescriptor);
         newClient->setIp(inet_ntoa(_clientAddress.sin_addr));
         using namespace std::placeholders;
-        //newClient->setEventsHandler(std::bind(&TcpServer::clientEventHandler, this, _1, _2, _3));
+        newClient->setEventsHandler(std::bind(&TcpServer::clientEventHandler, this, _1, _2, _3));
         newClient->startListen();
 
         std::lock_guard<std::mutex> lock(_clientsMtx);
