@@ -29,13 +29,15 @@ class TcpServer {
         char *message, clientReply[2000];
         fd_set _fds;
         std::vector<Client*> _clients;
+        std::vector<server_observer_t> _subscribers;
 
+        std::mutex _subscribersMtx;
         std::mutex _clientsMtx;
 
-        // void publishClientMsg(const Client & client, const char * msg, size_t msgSize);
-        // void publishClientDisconnected(const std::string&, const std::string&);
+        void publishClientMsg(const Client & client, const char * msg, size_t msgSize);
+        void publishClientDisconnected(const std::string&, const std::string&);
         ret_st waitForClient(uint32_t timeout);
-        // void clientEventHandler(const Client&, ClientEvent, const std::string &msg);
+        void clientEventHandler(const Client&, ClientEvent, const std::string &msg);
         // void removeDeadClients();
         // void terminateDeadClientsRemover();
 
@@ -47,7 +49,7 @@ class TcpServer {
         void bindAddress(int port);
         void listenToClients();
         std::string acceptClient(uint timeout);
-        //void subscribe(const server_observer_t & observer);
+        void subscribe(const server_observer_t & observer);
         ret_st sendToAllClients(const char * msg, size_t size);
         ret_st sendToClient(const Client & client, const char * msg, size_t size);
         ret_st close();
