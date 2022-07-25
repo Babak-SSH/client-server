@@ -24,9 +24,7 @@ namespace TCP {
             return ret_st::failure(error.what());
         }
 
-        const int connectResult = connect(_sockfd.get() , (struct sockaddr *)&_server , sizeof(_server));
-        const bool connectionFailed = (connectResult == -1);
-        if (connectionFailed) {
+        if (connect(_sockfd.get() , (struct sockaddr *)&_server , sizeof(_server)) == -1) {
             return ret_st::failure(strerror(errno));
         }
 
