@@ -11,7 +11,7 @@ TCP::TcpClient client;
 void sig_exit(int s)
 {
 	std::cout << "Closing client...\n";
-	ret_st finishRet = client.close();
+	TCP::ret_st finishRet = client.close();
 	if (finishRet.isSuccessful()) {
 		std::cout << "Client closed.\n";
 	} else {
@@ -24,9 +24,11 @@ int main() {
     //register to SIGINT to close client when user press ctrl+c
 	signal(SIGINT, sig_exit);
 
+    int count = 0;
+
     bool connected = false;
     while (!connected) {
-        ret_st connectRet = client.connectTo("127.0.0.1", 5005);
+        TCP::ret_st connectRet = client.connectTo("127.0.0.1", 5005);
         connected = connectRet.isSuccessful();
         if (connected) {
             std::cout << "Client connected successfully\n";
@@ -40,12 +42,17 @@ int main() {
         }
 	};
 
-    // send message
-    std::string message = "fuck";
-    ret_st sendRet = client.sendMsg(message.c_str(), message.size());
-    if (!sendRet.isSuccessful()) {
-        std::cout << "Failed to send message: " << sendRet.message() << "\n";
-    } else {
-        std::cout << "message was sent successfuly\n";
+    while (count < 500) {
+        // send message
+        std::string message = "test";
+        TCP::ret_st sendRet = client.sendMsg(message.c_str(), message.size());
+        count++;
+        if (!sendRet.isSuccessful()) {
+            std::cout << "Failed to send message: " << sendRet.message() << "\n";
+        } else {
+            std::cout << "message was sent successfuly\n";
+        }   
     }
+    
+    
 }
