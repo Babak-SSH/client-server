@@ -28,6 +28,7 @@ namespace TCP {
     }
 
     void Client::startListen() {
+        std::cout << "start to listen....." << std::endl;
         setConnected(true);
         _receiveThread = new std::thread(&Client::receiveTask, this);
     }
@@ -73,17 +74,17 @@ namespace TCP {
                     disconnectionMessage = strerror(errno);
                 }
                 setConnected(false);
-                // publishEvent(ClientEvent::DISCONNECTED, disconnectionMessage);
+                publishEvent(ClientEvent::DISCONNECTED, disconnectionMessage);
                 return;
             } else {
-                // publishEvent(ClientEvent::INCOMING_MSG, receivedMessage);
+                publishEvent(ClientEvent::INCOMING_MSG, receivedMessage);
             }
         }
     }
 
-    // void Client::publishEvent(ClientEvent clientEvent, const std::string &msg) {
-    //     _eventHandlerCallback(*this, clientEvent, msg);
-    // }
+    void Client::publishEvent(ClientEvent clientEvent, const std::string &msg) {
+        _eventHandlerCallback(*this, clientEvent, msg);
+    }
 
     void Client::print() const {
         const std::string connected = isConnected() ? "True" : "False";
