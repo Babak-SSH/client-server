@@ -180,6 +180,7 @@ class img_data PROTOBUF_FINAL :
 
   enum : int {
     kImgFieldNumber = 1,
+    kSizeFieldNumber = 2,
   };
   // bytes img = 1;
   bool has_img() const;
@@ -210,6 +211,19 @@ class img_data PROTOBUF_FINAL :
   std::string* _internal_mutable_img();
   public:
 
+  // int32 size = 2;
+  bool has_size() const;
+  private:
+  bool _internal_has_size() const;
+  public:
+  void clear_size();
+  ::PROTOBUF_NAMESPACE_ID::int32 size() const;
+  void set_size(::PROTOBUF_NAMESPACE_ID::int32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_size() const;
+  void _internal_set_size(::PROTOBUF_NAMESPACE_ID::int32 value);
+  public:
+
   // @@protoc_insertion_point(class_scope:Image.img_data)
  private:
   class _Internal;
@@ -220,6 +234,7 @@ class img_data PROTOBUF_FINAL :
   ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr img_;
+  ::PROTOBUF_NAMESPACE_ID::int32 size_;
   friend struct ::TableStruct_img_5fdata_2eproto;
 };
 // ===================================================================
@@ -324,6 +339,34 @@ inline void img_data::unsafe_arena_set_allocated_img(
   img_.UnsafeArenaSetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       img, GetArena());
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:Image.img_data.img)
+}
+
+// int32 size = 2;
+inline bool img_data::_internal_has_size() const {
+  bool value = (_has_bits_[0] & 0x00000002u) != 0;
+  return value;
+}
+inline bool img_data::has_size() const {
+  return _internal_has_size();
+}
+inline void img_data::clear_size() {
+  size_ = 0;
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 img_data::_internal_size() const {
+  return size_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 img_data::size() const {
+  // @@protoc_insertion_point(field_get:Image.img_data.size)
+  return _internal_size();
+}
+inline void img_data::_internal_set_size(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _has_bits_[0] |= 0x00000002u;
+  size_ = value;
+}
+inline void img_data::set_size(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_size(value);
+  // @@protoc_insertion_point(field_set:Image.img_data.size)
 }
 
 #ifdef __GNUC__
