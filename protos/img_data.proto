@@ -1,0 +1,7 @@
+syntax= "proto3";
+
+package Image;
+
+message img_data {
+    optional bytes img = 1;
+}

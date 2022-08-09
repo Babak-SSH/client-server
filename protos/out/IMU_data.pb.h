@@ -179,45 +179,117 @@ class IMU_data PROTOBUF_FINAL :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kXFieldNumber = 1,
-    kYFieldNumber = 2,
-    kZFieldNumber = 3,
-    kTempFieldNumber = 4,
+    kRollFieldNumber = 1,
+    kPitchFieldNumber = 2,
+    kAccXFieldNumber = 3,
+    kAccYFieldNumber = 4,
+    kAccZFieldNumber = 5,
+    kGyroXFieldNumber = 6,
+    kGyroYFieldNumber = 7,
+    kGyroZFieldNumber = 8,
   };
-  // float x = 1;
-  void clear_x();
-  float x() const;
-  void set_x(float value);
+  // float roll = 1;
+  bool has_roll() const;
   private:
-  float _internal_x() const;
-  void _internal_set_x(float value);
+  bool _internal_has_roll() const;
+  public:
+  void clear_roll();
+  float roll() const;
+  void set_roll(float value);
+  private:
+  float _internal_roll() const;
+  void _internal_set_roll(float value);
   public:
 
-  // float y = 2;
-  void clear_y();
-  float y() const;
-  void set_y(float value);
+  // float pitch = 2;
+  bool has_pitch() const;
   private:
-  float _internal_y() const;
-  void _internal_set_y(float value);
+  bool _internal_has_pitch() const;
+  public:
+  void clear_pitch();
+  float pitch() const;
+  void set_pitch(float value);
+  private:
+  float _internal_pitch() const;
+  void _internal_set_pitch(float value);
   public:
 
-  // float z = 3;
-  void clear_z();
-  float z() const;
-  void set_z(float value);
+  // float acc_x = 3;
+  bool has_acc_x() const;
   private:
-  float _internal_z() const;
-  void _internal_set_z(float value);
+  bool _internal_has_acc_x() const;
+  public:
+  void clear_acc_x();
+  float acc_x() const;
+  void set_acc_x(float value);
+  private:
+  float _internal_acc_x() const;
+  void _internal_set_acc_x(float value);
   public:
 
-  // float temp = 4;
-  void clear_temp();
-  float temp() const;
-  void set_temp(float value);
+  // float acc_y = 4;
+  bool has_acc_y() const;
   private:
-  float _internal_temp() const;
-  void _internal_set_temp(float value);
+  bool _internal_has_acc_y() const;
+  public:
+  void clear_acc_y();
+  float acc_y() const;
+  void set_acc_y(float value);
+  private:
+  float _internal_acc_y() const;
+  void _internal_set_acc_y(float value);
+  public:
+
+  // float acc_z = 5;
+  bool has_acc_z() const;
+  private:
+  bool _internal_has_acc_z() const;
+  public:
+  void clear_acc_z();
+  float acc_z() const;
+  void set_acc_z(float value);
+  private:
+  float _internal_acc_z() const;
+  void _internal_set_acc_z(float value);
+  public:
+
+  // float gyro_x = 6;
+  bool has_gyro_x() const;
+  private:
+  bool _internal_has_gyro_x() const;
+  public:
+  void clear_gyro_x();
+  float gyro_x() const;
+  void set_gyro_x(float value);
+  private:
+  float _internal_gyro_x() const;
+  void _internal_set_gyro_x(float value);
+  public:
+
+  // float gyro_y = 7;
+  bool has_gyro_y() const;
+  private:
+  bool _internal_has_gyro_y() const;
+  public:
+  void clear_gyro_y();
+  float gyro_y() const;
+  void set_gyro_y(float value);
+  private:
+  float _internal_gyro_y() const;
+  void _internal_set_gyro_y(float value);
+  public:
+
+  // float gyro_z = 8;
+  bool has_gyro_z() const;
+  private:
+  bool _internal_has_gyro_z() const;
+  public:
+  void clear_gyro_z();
+  float gyro_z() const;
+  void set_gyro_z(float value);
+  private:
+  float _internal_gyro_z() const;
+  void _internal_set_gyro_z(float value);
   public:
 
   // @@protoc_insertion_point(class_scope:IMU.IMU_data)
@@ -227,11 +299,16 @@ class IMU_data PROTOBUF_FINAL :
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
-  float x_;
-  float y_;
-  float z_;
-  float temp_;
+  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  float roll_;
+  float pitch_;
+  float acc_x_;
+  float acc_y_;
+  float acc_z_;
+  float gyro_x_;
+  float gyro_y_;
+  float gyro_z_;
   friend struct ::TableStruct_IMU_5fdata_2eproto;
 };
 // ===================================================================
@@ -245,84 +322,228 @@ class IMU_data PROTOBUF_FINAL :
 #endif  // __GNUC__
 // IMU_data
 
-// float x = 1;
-inline void IMU_data::clear_x() {
-  x_ = 0;
+// float roll = 1;
+inline bool IMU_data::_internal_has_roll() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  return value;
 }
-inline float IMU_data::_internal_x() const {
-  return x_;
+inline bool IMU_data::has_roll() const {
+  return _internal_has_roll();
 }
-inline float IMU_data::x() const {
-  // @@protoc_insertion_point(field_get:IMU.IMU_data.x)
-  return _internal_x();
+inline void IMU_data::clear_roll() {
+  roll_ = 0;
+  _has_bits_[0] &= ~0x00000001u;
 }
-inline void IMU_data::_internal_set_x(float value) {
-  
-  x_ = value;
+inline float IMU_data::_internal_roll() const {
+  return roll_;
 }
-inline void IMU_data::set_x(float value) {
-  _internal_set_x(value);
-  // @@protoc_insertion_point(field_set:IMU.IMU_data.x)
+inline float IMU_data::roll() const {
+  // @@protoc_insertion_point(field_get:IMU.IMU_data.roll)
+  return _internal_roll();
 }
-
-// float y = 2;
-inline void IMU_data::clear_y() {
-  y_ = 0;
+inline void IMU_data::_internal_set_roll(float value) {
+  _has_bits_[0] |= 0x00000001u;
+  roll_ = value;
 }
-inline float IMU_data::_internal_y() const {
-  return y_;
-}
-inline float IMU_data::y() const {
-  // @@protoc_insertion_point(field_get:IMU.IMU_data.y)
-  return _internal_y();
-}
-inline void IMU_data::_internal_set_y(float value) {
-  
-  y_ = value;
-}
-inline void IMU_data::set_y(float value) {
-  _internal_set_y(value);
-  // @@protoc_insertion_point(field_set:IMU.IMU_data.y)
+inline void IMU_data::set_roll(float value) {
+  _internal_set_roll(value);
+  // @@protoc_insertion_point(field_set:IMU.IMU_data.roll)
 }
 
-// float z = 3;
-inline void IMU_data::clear_z() {
-  z_ = 0;
+// float pitch = 2;
+inline bool IMU_data::_internal_has_pitch() const {
+  bool value = (_has_bits_[0] & 0x00000002u) != 0;
+  return value;
 }
-inline float IMU_data::_internal_z() const {
-  return z_;
+inline bool IMU_data::has_pitch() const {
+  return _internal_has_pitch();
 }
-inline float IMU_data::z() const {
-  // @@protoc_insertion_point(field_get:IMU.IMU_data.z)
-  return _internal_z();
+inline void IMU_data::clear_pitch() {
+  pitch_ = 0;
+  _has_bits_[0] &= ~0x00000002u;
 }
-inline void IMU_data::_internal_set_z(float value) {
-  
-  z_ = value;
+inline float IMU_data::_internal_pitch() const {
+  return pitch_;
 }
-inline void IMU_data::set_z(float value) {
-  _internal_set_z(value);
-  // @@protoc_insertion_point(field_set:IMU.IMU_data.z)
+inline float IMU_data::pitch() const {
+  // @@protoc_insertion_point(field_get:IMU.IMU_data.pitch)
+  return _internal_pitch();
+}
+inline void IMU_data::_internal_set_pitch(float value) {
+  _has_bits_[0] |= 0x00000002u;
+  pitch_ = value;
+}
+inline void IMU_data::set_pitch(float value) {
+  _internal_set_pitch(value);
+  // @@protoc_insertion_point(field_set:IMU.IMU_data.pitch)
 }
 
-// float temp = 4;
-inline void IMU_data::clear_temp() {
-  temp_ = 0;
+// float acc_x = 3;
+inline bool IMU_data::_internal_has_acc_x() const {
+  bool value = (_has_bits_[0] & 0x00000004u) != 0;
+  return value;
 }
-inline float IMU_data::_internal_temp() const {
-  return temp_;
+inline bool IMU_data::has_acc_x() const {
+  return _internal_has_acc_x();
 }
-inline float IMU_data::temp() const {
-  // @@protoc_insertion_point(field_get:IMU.IMU_data.temp)
-  return _internal_temp();
+inline void IMU_data::clear_acc_x() {
+  acc_x_ = 0;
+  _has_bits_[0] &= ~0x00000004u;
 }
-inline void IMU_data::_internal_set_temp(float value) {
-  
-  temp_ = value;
+inline float IMU_data::_internal_acc_x() const {
+  return acc_x_;
 }
-inline void IMU_data::set_temp(float value) {
-  _internal_set_temp(value);
-  // @@protoc_insertion_point(field_set:IMU.IMU_data.temp)
+inline float IMU_data::acc_x() const {
+  // @@protoc_insertion_point(field_get:IMU.IMU_data.acc_x)
+  return _internal_acc_x();
+}
+inline void IMU_data::_internal_set_acc_x(float value) {
+  _has_bits_[0] |= 0x00000004u;
+  acc_x_ = value;
+}
+inline void IMU_data::set_acc_x(float value) {
+  _internal_set_acc_x(value);
+  // @@protoc_insertion_point(field_set:IMU.IMU_data.acc_x)
+}
+
+// float acc_y = 4;
+inline bool IMU_data::_internal_has_acc_y() const {
+  bool value = (_has_bits_[0] & 0x00000008u) != 0;
+  return value;
+}
+inline bool IMU_data::has_acc_y() const {
+  return _internal_has_acc_y();
+}
+inline void IMU_data::clear_acc_y() {
+  acc_y_ = 0;
+  _has_bits_[0] &= ~0x00000008u;
+}
+inline float IMU_data::_internal_acc_y() const {
+  return acc_y_;
+}
+inline float IMU_data::acc_y() const {
+  // @@protoc_insertion_point(field_get:IMU.IMU_data.acc_y)
+  return _internal_acc_y();
+}
+inline void IMU_data::_internal_set_acc_y(float value) {
+  _has_bits_[0] |= 0x00000008u;
+  acc_y_ = value;
+}
+inline void IMU_data::set_acc_y(float value) {
+  _internal_set_acc_y(value);
+  // @@protoc_insertion_point(field_set:IMU.IMU_data.acc_y)
+}
+
+// float acc_z = 5;
+inline bool IMU_data::_internal_has_acc_z() const {
+  bool value = (_has_bits_[0] & 0x00000010u) != 0;
+  return value;
+}
+inline bool IMU_data::has_acc_z() const {
+  return _internal_has_acc_z();
+}
+inline void IMU_data::clear_acc_z() {
+  acc_z_ = 0;
+  _has_bits_[0] &= ~0x00000010u;
+}
+inline float IMU_data::_internal_acc_z() const {
+  return acc_z_;
+}
+inline float IMU_data::acc_z() const {
+  // @@protoc_insertion_point(field_get:IMU.IMU_data.acc_z)
+  return _internal_acc_z();
+}
+inline void IMU_data::_internal_set_acc_z(float value) {
+  _has_bits_[0] |= 0x00000010u;
+  acc_z_ = value;
+}
+inline void IMU_data::set_acc_z(float value) {
+  _internal_set_acc_z(value);
+  // @@protoc_insertion_point(field_set:IMU.IMU_data.acc_z)
+}
+
+// float gyro_x = 6;
+inline bool IMU_data::_internal_has_gyro_x() const {
+  bool value = (_has_bits_[0] & 0x00000020u) != 0;
+  return value;
+}
+inline bool IMU_data::has_gyro_x() const {
+  return _internal_has_gyro_x();
+}
+inline void IMU_data::clear_gyro_x() {
+  gyro_x_ = 0;
+  _has_bits_[0] &= ~0x00000020u;
+}
+inline float IMU_data::_internal_gyro_x() const {
+  return gyro_x_;
+}
+inline float IMU_data::gyro_x() const {
+  // @@protoc_insertion_point(field_get:IMU.IMU_data.gyro_x)
+  return _internal_gyro_x();
+}
+inline void IMU_data::_internal_set_gyro_x(float value) {
+  _has_bits_[0] |= 0x00000020u;
+  gyro_x_ = value;
+}
+inline void IMU_data::set_gyro_x(float value) {
+  _internal_set_gyro_x(value);
+  // @@protoc_insertion_point(field_set:IMU.IMU_data.gyro_x)
+}
+
+// float gyro_y = 7;
+inline bool IMU_data::_internal_has_gyro_y() const {
+  bool value = (_has_bits_[0] & 0x00000040u) != 0;
+  return value;
+}
+inline bool IMU_data::has_gyro_y() const {
+  return _internal_has_gyro_y();
+}
+inline void IMU_data::clear_gyro_y() {
+  gyro_y_ = 0;
+  _has_bits_[0] &= ~0x00000040u;
+}
+inline float IMU_data::_internal_gyro_y() const {
+  return gyro_y_;
+}
+inline float IMU_data::gyro_y() const {
+  // @@protoc_insertion_point(field_get:IMU.IMU_data.gyro_y)
+  return _internal_gyro_y();
+}
+inline void IMU_data::_internal_set_gyro_y(float value) {
+  _has_bits_[0] |= 0x00000040u;
+  gyro_y_ = value;
+}
+inline void IMU_data::set_gyro_y(float value) {
+  _internal_set_gyro_y(value);
+  // @@protoc_insertion_point(field_set:IMU.IMU_data.gyro_y)
+}
+
+// float gyro_z = 8;
+inline bool IMU_data::_internal_has_gyro_z() const {
+  bool value = (_has_bits_[0] & 0x00000080u) != 0;
+  return value;
+}
+inline bool IMU_data::has_gyro_z() const {
+  return _internal_has_gyro_z();
+}
+inline void IMU_data::clear_gyro_z() {
+  gyro_z_ = 0;
+  _has_bits_[0] &= ~0x00000080u;
+}
+inline float IMU_data::_internal_gyro_z() const {
+  return gyro_z_;
+}
+inline float IMU_data::gyro_z() const {
+  // @@protoc_insertion_point(field_get:IMU.IMU_data.gyro_z)
+  return _internal_gyro_z();
+}
+inline void IMU_data::_internal_set_gyro_z(float value) {
+  _has_bits_[0] |= 0x00000080u;
+  gyro_z_ = value;
+}
+inline void IMU_data::set_gyro_z(float value) {
+  _internal_set_gyro_z(value);
+  // @@protoc_insertion_point(field_set:IMU.IMU_data.gyro_z)
 }
 
 #ifdef __GNUC__

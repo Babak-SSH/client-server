@@ -39,18 +39,30 @@ static constexpr ::PROTOBUF_NAMESPACE_ID::EnumDescriptor const** file_level_enum
 static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_IMU_5fdata_2eproto = nullptr;
 
 const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_IMU_5fdata_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::IMU::IMU_data, _has_bits_),
   PROTOBUF_FIELD_OFFSET(::IMU::IMU_data, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::IMU::IMU_data, x_),
-  PROTOBUF_FIELD_OFFSET(::IMU::IMU_data, y_),
-  PROTOBUF_FIELD_OFFSET(::IMU::IMU_data, z_),
-  PROTOBUF_FIELD_OFFSET(::IMU::IMU_data, temp_),
+  PROTOBUF_FIELD_OFFSET(::IMU::IMU_data, roll_),
+  PROTOBUF_FIELD_OFFSET(::IMU::IMU_data, pitch_),
+  PROTOBUF_FIELD_OFFSET(::IMU::IMU_data, acc_x_),
+  PROTOBUF_FIELD_OFFSET(::IMU::IMU_data, acc_y_),
+  PROTOBUF_FIELD_OFFSET(::IMU::IMU_data, acc_z_),
+  PROTOBUF_FIELD_OFFSET(::IMU::IMU_data, gyro_x_),
+  PROTOBUF_FIELD_OFFSET(::IMU::IMU_data, gyro_y_),
+  PROTOBUF_FIELD_OFFSET(::IMU::IMU_data, gyro_z_),
+  0,
+  1,
+  2,
+  3,
+  4,
+  5,
+  6,
+  7,
 };
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  { 0, -1, sizeof(::IMU::IMU_data)},
+  { 0, 13, sizeof(::IMU::IMU_data)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
@@ -58,9 +70,14 @@ static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] =
 };
 
 const char descriptor_table_protodef_IMU_5fdata_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
-  "\n\016IMU_data.proto\022\003IMU\"9\n\010IMU_data\022\t\n\001x\030\001"
-  " \001(\002\022\t\n\001y\030\002 \001(\002\022\t\n\001z\030\003 \001(\002\022\014\n\004temp\030\004 \001(\002"
-  "b\006proto3"
+  "\n\016IMU_data.proto\022\003IMU\"\376\001\n\010IMU_data\022\021\n\004ro"
+  "ll\030\001 \001(\002H\000\210\001\001\022\022\n\005pitch\030\002 \001(\002H\001\210\001\001\022\022\n\005acc"
+  "_x\030\003 \001(\002H\002\210\001\001\022\022\n\005acc_y\030\004 \001(\002H\003\210\001\001\022\022\n\005acc"
+  "_z\030\005 \001(\002H\004\210\001\001\022\023\n\006gyro_x\030\006 \001(\002H\005\210\001\001\022\023\n\006gy"
+  "ro_y\030\007 \001(\002H\006\210\001\001\022\023\n\006gyro_z\030\010 \001(\002H\007\210\001\001B\007\n\005"
+  "_rollB\010\n\006_pitchB\010\n\006_acc_xB\010\n\006_acc_yB\010\n\006_"
+  "acc_zB\t\n\007_gyro_xB\t\n\007_gyro_yB\t\n\007_gyro_zb\006"
+  "proto3"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_IMU_5fdata_2eproto_deps[1] = {
 };
@@ -69,7 +86,7 @@ static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_IMU
 };
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_IMU_5fdata_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_IMU_5fdata_2eproto = {
-  false, false, descriptor_table_protodef_IMU_5fdata_2eproto, "IMU_data.proto", 88,
+  false, false, descriptor_table_protodef_IMU_5fdata_2eproto, "IMU_data.proto", 286,
   &descriptor_table_IMU_5fdata_2eproto_once, descriptor_table_IMU_5fdata_2eproto_sccs, descriptor_table_IMU_5fdata_2eproto_deps, 1, 0,
   schemas, file_default_instances, TableStruct_IMU_5fdata_2eproto::offsets,
   file_level_metadata_IMU_5fdata_2eproto, 1, file_level_enum_descriptors_IMU_5fdata_2eproto, file_level_service_descriptors_IMU_5fdata_2eproto,
@@ -85,6 +102,31 @@ void IMU_data::InitAsDefaultInstance() {
 }
 class IMU_data::_Internal {
  public:
+  using HasBits = decltype(std::declval<IMU_data>()._has_bits_);
+  static void set_has_roll(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+  static void set_has_pitch(HasBits* has_bits) {
+    (*has_bits)[0] |= 2u;
+  }
+  static void set_has_acc_x(HasBits* has_bits) {
+    (*has_bits)[0] |= 4u;
+  }
+  static void set_has_acc_y(HasBits* has_bits) {
+    (*has_bits)[0] |= 8u;
+  }
+  static void set_has_acc_z(HasBits* has_bits) {
+    (*has_bits)[0] |= 16u;
+  }
+  static void set_has_gyro_x(HasBits* has_bits) {
+    (*has_bits)[0] |= 32u;
+  }
+  static void set_has_gyro_y(HasBits* has_bits) {
+    (*has_bits)[0] |= 64u;
+  }
+  static void set_has_gyro_z(HasBits* has_bits) {
+    (*has_bits)[0] |= 128u;
+  }
 };
 
 IMU_data::IMU_data(::PROTOBUF_NAMESPACE_ID::Arena* arena)
@@ -94,18 +136,19 @@ IMU_data::IMU_data(::PROTOBUF_NAMESPACE_ID::Arena* arena)
   // @@protoc_insertion_point(arena_constructor:IMU.IMU_data)
 }
 IMU_data::IMU_data(const IMU_data& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  : ::PROTOBUF_NAMESPACE_ID::Message(),
+      _has_bits_(from._has_bits_) {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  ::memcpy(&x_, &from.x_,
-    static_cast<size_t>(reinterpret_cast<char*>(&temp_) -
-    reinterpret_cast<char*>(&x_)) + sizeof(temp_));
+  ::memcpy(&roll_, &from.roll_,
+    static_cast<size_t>(reinterpret_cast<char*>(&gyro_z_) -
+    reinterpret_cast<char*>(&roll_)) + sizeof(gyro_z_));
   // @@protoc_insertion_point(copy_constructor:IMU.IMU_data)
 }
 
 void IMU_data::SharedCtor() {
-  ::memset(&x_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&temp_) -
-      reinterpret_cast<char*>(&x_)) + sizeof(temp_));
+  ::memset(&roll_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&gyro_z_) -
+      reinterpret_cast<char*>(&roll_)) + sizeof(gyro_z_));
 }
 
 IMU_data::~IMU_data() {
@@ -139,45 +182,86 @@ void IMU_data::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  ::memset(&x_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&temp_) -
-      reinterpret_cast<char*>(&x_)) + sizeof(temp_));
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x000000ffu) {
+    ::memset(&roll_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&gyro_z_) -
+        reinterpret_cast<char*>(&roll_)) + sizeof(gyro_z_));
+  }
+  _has_bits_.Clear();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 const char* IMU_data::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
   ::PROTOBUF_NAMESPACE_ID::Arena* arena = GetArena(); (void)arena;
   while (!ctx->Done(&ptr)) {
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
     CHK_(ptr);
     switch (tag >> 3) {
-      // float x = 1;
+      // float roll = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 13)) {
-          x_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
+          _Internal::set_has_roll(&has_bits);
+          roll_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
         } else goto handle_unusual;
         continue;
-      // float y = 2;
+      // float pitch = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 21)) {
-          y_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
+          _Internal::set_has_pitch(&has_bits);
+          pitch_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
         } else goto handle_unusual;
         continue;
-      // float z = 3;
+      // float acc_x = 3;
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 29)) {
-          z_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
+          _Internal::set_has_acc_x(&has_bits);
+          acc_x_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
         } else goto handle_unusual;
         continue;
-      // float temp = 4;
+      // float acc_y = 4;
       case 4:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 37)) {
-          temp_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
+          _Internal::set_has_acc_y(&has_bits);
+          acc_y_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
+          ptr += sizeof(float);
+        } else goto handle_unusual;
+        continue;
+      // float acc_z = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 45)) {
+          _Internal::set_has_acc_z(&has_bits);
+          acc_z_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
+          ptr += sizeof(float);
+        } else goto handle_unusual;
+        continue;
+      // float gyro_x = 6;
+      case 6:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 53)) {
+          _Internal::set_has_gyro_x(&has_bits);
+          gyro_x_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
+          ptr += sizeof(float);
+        } else goto handle_unusual;
+        continue;
+      // float gyro_y = 7;
+      case 7:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 61)) {
+          _Internal::set_has_gyro_y(&has_bits);
+          gyro_y_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
+          ptr += sizeof(float);
+        } else goto handle_unusual;
+        continue;
+      // float gyro_z = 8;
+      case 8:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 69)) {
+          _Internal::set_has_gyro_z(&has_bits);
+          gyro_z_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
         } else goto handle_unusual;
         continue;
@@ -196,6 +280,7 @@ const char* IMU_data::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::i
     }  // switch
   }  // while
 success:
+  _has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -209,28 +294,52 @@ failure:
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // float x = 1;
-  if (!(this->x() <= 0 && this->x() >= 0)) {
+  // float roll = 1;
+  if (_internal_has_roll()) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(1, this->_internal_x(), target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(1, this->_internal_roll(), target);
   }
 
-  // float y = 2;
-  if (!(this->y() <= 0 && this->y() >= 0)) {
+  // float pitch = 2;
+  if (_internal_has_pitch()) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(2, this->_internal_y(), target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(2, this->_internal_pitch(), target);
   }
 
-  // float z = 3;
-  if (!(this->z() <= 0 && this->z() >= 0)) {
+  // float acc_x = 3;
+  if (_internal_has_acc_x()) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(3, this->_internal_z(), target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(3, this->_internal_acc_x(), target);
   }
 
-  // float temp = 4;
-  if (!(this->temp() <= 0 && this->temp() >= 0)) {
+  // float acc_y = 4;
+  if (_internal_has_acc_y()) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(4, this->_internal_temp(), target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(4, this->_internal_acc_y(), target);
+  }
+
+  // float acc_z = 5;
+  if (_internal_has_acc_z()) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(5, this->_internal_acc_z(), target);
+  }
+
+  // float gyro_x = 6;
+  if (_internal_has_gyro_x()) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(6, this->_internal_gyro_x(), target);
+  }
+
+  // float gyro_y = 7;
+  if (_internal_has_gyro_y()) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(7, this->_internal_gyro_y(), target);
+  }
+
+  // float gyro_z = 8;
+  if (_internal_has_gyro_z()) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(8, this->_internal_gyro_z(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -249,26 +358,49 @@ size_t IMU_data::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // float x = 1;
-  if (!(this->x() <= 0 && this->x() >= 0)) {
-    total_size += 1 + 4;
-  }
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x000000ffu) {
+    // float roll = 1;
+    if (cached_has_bits & 0x00000001u) {
+      total_size += 1 + 4;
+    }
 
-  // float y = 2;
-  if (!(this->y() <= 0 && this->y() >= 0)) {
-    total_size += 1 + 4;
-  }
+    // float pitch = 2;
+    if (cached_has_bits & 0x00000002u) {
+      total_size += 1 + 4;
+    }
 
-  // float z = 3;
-  if (!(this->z() <= 0 && this->z() >= 0)) {
-    total_size += 1 + 4;
-  }
+    // float acc_x = 3;
+    if (cached_has_bits & 0x00000004u) {
+      total_size += 1 + 4;
+    }
 
-  // float temp = 4;
-  if (!(this->temp() <= 0 && this->temp() >= 0)) {
-    total_size += 1 + 4;
-  }
+    // float acc_y = 4;
+    if (cached_has_bits & 0x00000008u) {
+      total_size += 1 + 4;
+    }
 
+    // float acc_z = 5;
+    if (cached_has_bits & 0x00000010u) {
+      total_size += 1 + 4;
+    }
+
+    // float gyro_x = 6;
+    if (cached_has_bits & 0x00000020u) {
+      total_size += 1 + 4;
+    }
+
+    // float gyro_y = 7;
+    if (cached_has_bits & 0x00000040u) {
+      total_size += 1 + 4;
+    }
+
+    // float gyro_z = 8;
+    if (cached_has_bits & 0x00000080u) {
+      total_size += 1 + 4;
+    }
+
+  }
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
         _internal_metadata_, total_size, &_cached_size_);
@@ -300,17 +432,33 @@ void IMU_data::MergeFrom(const IMU_data& from) {
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (!(from.x() <= 0 && from.x() >= 0)) {
-    _internal_set_x(from._internal_x());
-  }
-  if (!(from.y() <= 0 && from.y() >= 0)) {
-    _internal_set_y(from._internal_y());
-  }
-  if (!(from.z() <= 0 && from.z() >= 0)) {
-    _internal_set_z(from._internal_z());
-  }
-  if (!(from.temp() <= 0 && from.temp() >= 0)) {
-    _internal_set_temp(from._internal_temp());
+  cached_has_bits = from._has_bits_[0];
+  if (cached_has_bits & 0x000000ffu) {
+    if (cached_has_bits & 0x00000001u) {
+      roll_ = from.roll_;
+    }
+    if (cached_has_bits & 0x00000002u) {
+      pitch_ = from.pitch_;
+    }
+    if (cached_has_bits & 0x00000004u) {
+      acc_x_ = from.acc_x_;
+    }
+    if (cached_has_bits & 0x00000008u) {
+      acc_y_ = from.acc_y_;
+    }
+    if (cached_has_bits & 0x00000010u) {
+      acc_z_ = from.acc_z_;
+    }
+    if (cached_has_bits & 0x00000020u) {
+      gyro_x_ = from.gyro_x_;
+    }
+    if (cached_has_bits & 0x00000040u) {
+      gyro_y_ = from.gyro_y_;
+    }
+    if (cached_has_bits & 0x00000080u) {
+      gyro_z_ = from.gyro_z_;
+    }
+    _has_bits_[0] |= cached_has_bits;
   }
 }
 
@@ -335,12 +483,13 @@ bool IMU_data::IsInitialized() const {
 void IMU_data::InternalSwap(IMU_data* other) {
   using std::swap;
   _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(IMU_data, temp_)
-      + sizeof(IMU_data::temp_)
-      - PROTOBUF_FIELD_OFFSET(IMU_data, x_)>(
-          reinterpret_cast<char*>(&x_),
-          reinterpret_cast<char*>(&other->x_));
+      PROTOBUF_FIELD_OFFSET(IMU_data, gyro_z_)
+      + sizeof(IMU_data::gyro_z_)
+      - PROTOBUF_FIELD_OFFSET(IMU_data, roll_)>(
+          reinterpret_cast<char*>(&roll_),
+          reinterpret_cast<char*>(&other->roll_));
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata IMU_data::GetMetadata() const {
