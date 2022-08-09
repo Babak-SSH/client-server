@@ -2,8 +2,14 @@
 #include <iostream>
 #include <chrono>
 #include <thread>
+#include <fstream>
+#include <string>
+#include <sstream>
+#include <ios>
 
 #include "../include/tcp_client.h"
+#include "../protos/out/IMU_data.pb.h"
+#include "../protos/out/img_data.pb.h"
 
 
 TCP::TcpClient client;
@@ -24,7 +30,7 @@ int main() {
     //register to SIGINT to close client when user press ctrl+c
 	signal(SIGINT, sig_exit);
 
-    int count = 0;
+    float count = 0;
 
     bool connected = false;
     while (!connected) {
@@ -43,16 +49,34 @@ int main() {
 	};
 
     while (count < 500) {
+        IMU::IMU_data payload;
+
+        payload.set_roll(10);
+        payload.set_pitch(5);
+        payload.set_acc_x(count);
+        payload.set_acc_y(count);
+        payload.set_acc_z(4);
+
         // send message
-        std::string message = "test";
-        TCP::ret_st sendRet = client.sendMsg(message.c_str(), message.size());
+        TCP::ret_st sendRet = client.sendData<IMU::IMU_data>(payload);
+
         count++;
+
         if (!sendRet.isSuccessful()) {
             std::cout << "Failed to send message: " << sendRet.message() << "\n";
         } else {
             std::cout << "message was sent successfuly\n";
         }   
+        std::this_thread::sleep_for(std::chrono::milliseconds(1));
     }
-    
-    
+
+    Image::img_data imgPayload;
+
+    auto [imgSize, imgData] = client.encodeFile("/home/babak-ssh/temp/11.jpg");
+
+    imgPayload.set_img(imgData);
+    imgPayload.set_size(imgSize);
+
+    TCP::ret_st sendRet = client.sendData<Image::img_data>(imgPayload);   
+
 }
