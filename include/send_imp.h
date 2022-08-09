@@ -13,7 +13,7 @@ using namespace google::protobuf::io;
 
 namespace TCP {
 
-    template <typename T> ret_st TcpClient::sendMsg(T payload) {
+    template <typename T> ret_st TcpClient::sendData(T payload) {
         google::protobuf::Any any;
         any.PackFrom(payload);
 
@@ -24,7 +24,7 @@ namespace TCP {
         coded_output->WriteVarint32(any.ByteSizeLong());
         any.SerializeToCodedStream(coded_output);
 
-        const size_t numBytesSent = send(_sockfd.get(), pkt, pktSize, 0);
+        const size_t numBytesSent = send(_sockfd.get(), (void *) pkt, pktSize, 0);
 
         if (numBytesSent < 0 ) { // send failed
             return ret_st::failure(strerror(errno));

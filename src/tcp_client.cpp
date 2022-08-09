@@ -4,6 +4,8 @@
 
 #include "../include/tcp_client.h"
 #include "../include/file_descriptor.h"
+#include "../protos/out/IMU_data.pb.h"
+#include "../protos/out/img_data.pb.h"
 
 
 namespace TCP {
@@ -63,19 +65,27 @@ namespace TCP {
         _server.sin_port = htons(port);
     }
 
+    std::string TcpClient::encodeFile(const char* path) {
+        FILE *picture;
+        int siz = 0;
+        std::string out;
+    
+        picture = fopen(path, "rb"); 
+        fseek(picture, 0, SEEK_END);
+        siz = ftell(picture);
 
-    ret_st TcpClient::sendMsg(const char * msg, size_t size) {
-        const size_t numBytesSent = send(_sockfd.get(), msg, size, 0);
+        char Sbuf[siz];
 
-        if (numBytesSent < 0 ) { // send failed
-            return ret_st::failure(strerror(errno));
-        }
-        if (numBytesSent < size) { // not all bytes were sent
-            char errorMsg[100];
-            sprintf(errorMsg, "Only %lu bytes out of %lu was sent to client", numBytesSent, size);
-            return ret_st::failure(errorMsg);
-        }
-        return ret_st::success();
+        fseek(picture, 0, SEEK_END);
+        siz = ftell(picture);
+        fseek(picture, 0, SEEK_SET); //Going to the beginning of the file
+
+        fread(Sbuf, sizeof(char), sizeof(Sbuf), picture);
+
+        out = std::string(Sbuf, sizeof(Sbuf));
+        memset(Sbuf, 0, sizeof(Sbuf));
+
+        return out;
     }
 
     // void TcpClient::subscribe(const client_observer_t & observer) {

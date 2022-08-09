@@ -9,6 +9,9 @@
 #include <vector>
 
 #include <sys/socket.h>
+#include <sys/sendfile.h>
+#include <sys/stat.h>
+#include <fcntl.h>
 #include <arpa/inet.h>
 
 #include <chrono>
@@ -45,7 +48,8 @@ class TcpClient {
         TcpClient();
         ~TcpClient();
         ret_st connectTo(const std::string & address, int port);
-        ret_st sendMsg(const char * msg, size_t size);
+        template<typename T> ret_st sendData(T payload);
+        std::string encodeFile(const char* path);
 
         //void subscribe(const client_observer_t & observer);
         bool isConnected() const { return _isConnected; }
@@ -54,5 +58,7 @@ class TcpClient {
 }; 
 
 } // namespace TCP
+
+#include "send_imp.h"
 
 #endif
