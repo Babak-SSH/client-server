@@ -33,14 +33,14 @@ namespace TCP {
      * Handle different client events. Subscriber callbacks should be short and fast, and must not
      * call other server functions to avoid deadlock
      */
-    void TcpServer::clientEventHandler(const Client &client, ClientEvent event, const std::string &msg) {
+    void TcpServer::clientEventHandler(const Client &client, ClientEvent event, const google::protobuf::Any data, const std::string error) {
         switch (event) {
             case ClientEvent::DISCONNECTED: {
-                publishClientDisconnected(client.getIp(), msg);
+                publishClientDisconnected(client.getIp(), error);
                 break;
             }
             case ClientEvent::INCOMING_MSG: {
-                publishClientMsg(client, msg.c_str(), msg.size());
+                publishClientMsg(client, data);
                 break;
             }
         }
@@ -52,13 +52,13 @@ namespace TCP {
      * from clients with IP address identical to
      * the specific observer requested IP
      */
-    void TcpServer::publishClientMsg(const Client & client, const char * msg, size_t msgSize) {
+    void TcpServer::publishClientMsg(const Client & client, google::protobuf::Any data) {
         std::lock_guard<std::mutex> lock(_subscribersMtx);
 
         for (const server_observer_t& subscriber : _subscribers) {
             if (subscriber.wantedIP == client.getIp() || subscriber.wantedIP.empty()) {
                 if (subscriber.incomingPacketHandler) {
-                    subscriber.incomingPacketHandler(client.getIp(), msg, msgSize);
+                    subscriber.incomingPacketHandler(client.getIp(), data);
                 }
             }
         }
@@ -142,7 +142,7 @@ namespace TCP {
         auto newClient = new Client(fileDescriptor);
         newClient->setIp(inet_ntoa(_clientAddress.sin_addr));
         using namespace std::placeholders;
-        newClient->setEventsHandler(std::bind(&TcpServer::clientEventHandler, this, _1, _2, _3));
+        newClient->setEventsHandler(std::bind(&TcpServer::clientEventHandler, this, _1, _2, _3, _4));
         newClient->startListen();
 
         std::lock_guard<std::mutex> lock(_clientsMtx);

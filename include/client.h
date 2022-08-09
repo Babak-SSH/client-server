@@ -8,6 +8,7 @@
 #include <thread>
 #include <functional>
 
+#include <google/protobuf/any.pb.h>
 
 #include "file_descriptor.h"
 
@@ -21,7 +22,7 @@ namespace TCP {
 
     class Client {
         
-        using client_event_handler_t = std::function<void(const Client&, ClientEvent, const std::string&)>;
+        using client_event_handler_t = std::function<void(const Client&, ClientEvent, const google::protobuf::Any, const std::string)>;
 
         private:
             FileDesc::FileDescriptor _sockfd;
@@ -45,7 +46,7 @@ namespace TCP {
             std::string getIp() const { return _ip; }
 
             void setEventsHandler(const client_event_handler_t & eventHandler) { _eventHandlerCallback = eventHandler; }
-            void publishEvent(ClientEvent clientEvent, const std::string &msg = "");
+            void publishEvent(ClientEvent clientEvent, const google::protobuf::Any, const std::string &);
 
             bool isConnected() const { return _isConnected; }
 

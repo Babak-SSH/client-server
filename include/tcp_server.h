@@ -15,6 +15,8 @@
 #include <pthread.h>
 #include <mutex>
 
+#include <google/protobuf/any.pb.h>
+
 #include "file_descriptor.h"
 #include "utils.h"
 #include "client.h"
@@ -34,10 +36,10 @@ class TcpServer {
         std::mutex _subscribersMtx;
         std::mutex _clientsMtx;
 
-        void publishClientMsg(const Client & client, const char * msg, size_t msgSize);
+        void publishClientMsg(const Client & client, google::protobuf::Any data);
         void publishClientDisconnected(const std::string&, const std::string&);
         ret_st waitForClient(uint32_t timeout);
-        void clientEventHandler(const Client&, ClientEvent, const std::string &msg);
+        void clientEventHandler(const Client&, ClientEvent, const google::protobuf::Any, const std::string);
         // void removeDeadClients();
         // void terminateDeadClientsRemover();
 
