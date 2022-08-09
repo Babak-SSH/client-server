@@ -1,6 +1,6 @@
 #include <netdb.h>
 #include <unistd.h>
-
+#include <tuple>
 
 #include "../include/tcp_client.h"
 #include "../include/file_descriptor.h"
@@ -65,7 +65,7 @@ namespace TCP {
         _server.sin_port = htons(port);
     }
 
-    std::string TcpClient::encodeFile(const char* path) {
+        std::tuple<int, std::string> TcpClient::encodeFile(const char* path) {
         FILE *picture;
         int siz = 0;
         std::string out;
@@ -85,7 +85,7 @@ namespace TCP {
         out = std::string(Sbuf, sizeof(Sbuf));
         memset(Sbuf, 0, sizeof(Sbuf));
 
-        return out;
+        return std::make_tuple(siz, out);
     }
 
     // void TcpClient::subscribe(const client_observer_t & observer) {

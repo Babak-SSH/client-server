@@ -49,7 +49,7 @@ class TcpClient {
         ~TcpClient();
         ret_st connectTo(const std::string & address, int port);
         template<typename T> ret_st sendData(T payload);
-        std::string encodeFile(const char* path);
+        std::tuple<int, std::string> encodeFile(const char* path);
 
         //void subscribe(const client_observer_t & observer);
         bool isConnected() const { return _isConnected; }
