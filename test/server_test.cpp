@@ -1,4 +1,8 @@
+#include <google/protobuf/any.pb.h>
+
 #include "../include/tcp_server.h"
+#include "../protos/out/IMU_data.pb.h"
+#include "../protos/out/img_data.pb.h"
 
 
 TCP::TcpServer server;
@@ -7,10 +11,30 @@ TCP::server_observer_t observer1;
 
 // observer callback. will be called for every new message received by clients
 // with the requested IP address
-void onIncomingMsg1(const std::string &clientIP, const char * msg, size_t size) {
-    std::string msgStr = msg;
+void onIncomingMsg1(const std::string &clientIP, google::protobuf::Any data) {
     // print client message
-    std::cout << "Observer1 got client msg: " << msgStr << "\n";
+        if (data.Is<IMU::IMU_data>()) {
+            IMU::IMU_data payload;
+
+            data.UnpackTo(&payload);
+
+            //Print the message
+            std::cout << "Observer1 got client msg: " << payload.DebugString() << std::endl;
+
+        }
+        else if (data.Is<Image::img_data>()) {
+            Image::img_data payload;
+            FILE *image;
+
+            std::cout << "Observer1 got client image." << std::endl;
+
+            data.UnpackTo(&payload);
+
+            image = fopen("/home/babak-ssh/temp/test.jpg", "wb");
+
+            fwrite(payload.img().c_str(), sizeof(char), payload.size(), image);
+            fclose(image);
+        }
 }
 
 // observer callback. will be called when client disconnects
