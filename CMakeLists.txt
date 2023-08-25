@@ -18,6 +18,12 @@ add_library(${PROJECT_NAME}
         protos/out/IMU_data.pb.cc
         protos/out/img_data.pb.cc)
 
+file(MAKE_DIRECTORY "./build/client_data")
+file(MAKE_DIRECTORY "./build/server_data")
+
+file(COPY test/dopamine.png 
+    DESTINATION client_data)
+
 add_executable(tcp_server test/server_test.cpp)
 
 target_link_libraries (tcp_server ${PROJECT_NAME} ${CMAKE_THREAD_LIBS_INIT} -pthread -lprotobuf)

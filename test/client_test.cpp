@@ -72,7 +72,7 @@ int main() {
 
     Image::img_data imgPayload;
 
-    auto [imgSize, imgData] = client.encodeFile("/home/babak-ssh/temp/11.jpg");
+    auto [imgSize, imgData] = client.encodeFile("./client_data/dopamine.png");
 
     imgPayload.set_img(imgData);
     imgPayload.set_size(imgSize);

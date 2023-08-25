@@ -30,7 +30,7 @@ void onIncomingMsg1(const std::string &clientIP, google::protobuf::Any data) {
 
             data.UnpackTo(&payload);
 
-            image = fopen("/home/babak-ssh/temp/test.jpg", "wb");
+            image = fopen("./server_data/test.png", "wb");
 
             fwrite(payload.img().c_str(), sizeof(char), payload.size(), image);
             fclose(image);
