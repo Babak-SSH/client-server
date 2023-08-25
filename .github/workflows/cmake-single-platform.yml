@@ -17,15 +17,17 @@ jobs:
     - uses: actions/checkout@v3
     # get and build protobuf
     - name: Download Protobuf
+      if: steps.cache-depends.outputs.cache-hit != 'true'
       run: git clone -b "3.12.x" https://github.com/protocolbuffers/protobuf.git
 
     - name: Build ProtoBuf
+      if: steps.cache-depends.outputs.cache-hit != 'true'
       working-directory: protobuf
       run: git submodule update --init --recursive && ./autogen.sh
 
     - name: Install ProtoBuf
       working-directory: protobuf
-      run: make && make check && sudo make install && sudo ldconfig
+      run: ls && make && make check && sudo make install && sudo ldconfig
       
     - name: Configure CMake
       run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
